@@ -72,7 +72,7 @@ execLPM = runIdentity . execLPT
 
 -- | Constructs a linear programming problem in the specified monad.
 execLPT :: (Ord v, Group c, AbelianAdditive c, Monad m) => LPT v c m a -> m (LP v c)
-execLPT = liftM snd . runLPT
+execLPT = fmap snd . runLPT
 
 -- | Runs the specified operation in the linear programming monad.
 evalLPM :: (Ord v, Group c, AbelianAdditive c) => LPM v c a -> a
@@ -80,7 +80,7 @@ evalLPM = runIdentity . evalLPT
 
 -- | Runs the specified operation in the linear programming monad transformer.
 evalLPT :: (Ord v, Group c, AbelianAdditive c, Monad m) => LPT v c m a -> m a
-evalLPT = liftM fst . runLPT
+evalLPT = fmap fst . runLPT
 
 -- | Sets the optimization direction of the linear program: maximization or minimization.
 {-# SPECIALIZE setDirection :: Direction -> LPM v c (), Monad m => Direction -> LPT v c m () #-}
